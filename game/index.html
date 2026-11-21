@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Old Library — a spot-the-difference game</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./style.css">
+<script src="./vendor/three.min.js"></script>
+</head>
+<body>
+<header class="hud">
+  <div class="hud-title">
+    <h1>The Old Library</h1>
+    <p id="hud-round">Round 1 of 3 — Afternoon Reading</p>
+  </div>
+  <div class="hud-counter" aria-label="Differences remaining">
+    <span id="hud-left">12</span>
+    <span class="hud-counter-label">differences<br>left to find</span>
+    <span id="hud-found">0 found</span>
+  </div>
+  <div class="hud-timer">
+    <span id="hud-time">3:30</span>
+    <div class="hud-timebar-wrap"><div id="hud-timebar"></div></div>
+  </div>
+  <div class="hud-side">
+    <div class="hud-score">Score <strong id="hud-score">0</strong></div>
+    <div class="hud-buttons">
+      <span id="hud-hints">3 hints</span>
+      <button id="btn-hint" type="button">Hint</button>
+      <button id="btn-pause" type="button">Pause</button>
+      <button id="btn-restart" type="button">Restart</button>
+    </div>
+  </div>
+</header>
+
+<main id="panels">
+  <figure class="panel">
+    <div class="stage">
+      <canvas id="gl-left" width="560" height="420" aria-label="The old library as it was"></canvas>
+      <canvas id="fx-left" width="560" height="420"></canvas>
+    </div>
+    <figcaption>First reading — the library as it was</figcaption>
+  </figure>
+  <figure class="panel">
+    <div class="stage">
+      <canvas id="gl-right" width="560" height="420" aria-label="The old library as it is now, with twelve differences"></canvas>
+      <canvas id="fx-right" width="560" height="420"></canvas>
+    </div>
+    <figcaption>Second reading — twelve details have changed</figcaption>
+  </figure>
+</main>
+
+<p id="message" role="status"></p>
+<ul id="found-list" aria-label="Differences found"></ul>
+
+<footer class="controls">
+  <p><strong>Mouse:</strong> click a difference in either picture.
+     <strong>Keyboard:</strong> arrow keys move the brass lens, <kbd>Enter</kbd> checks the spot, <kbd>H</kbd> hint, <kbd>P</kbd> pause, <kbd>R</kbd> restart.
+     A wrong click costs 5 seconds.</p>
+</footer>
+
+<div id="overlay">
+  <section id="screen-start" class="screen">
+    <h2>The Old Library</h2>
+    <p class="story">The library is drawn twice — and the second drawing
+      lies in twelve small ways. A spine misprinted. A lamp gone out.
+      The clock's hands crept forward while nobody watched. Find all
+      twelve before the light and the clock run out, through the
+      afternoon, the candle hour and the closing bell.</p>
+    <ul class="how">
+      <li>Click a difference in <em>either</em> picture — a gold ring blooms on both.</li>
+      <li>Each round hides <strong>12 differences</strong> and gives you less time than the last.</li>
+      <li>A wrong click costs <strong>5 seconds</strong>. You carry <strong>3 hints</strong> a round.</li>
+      <li>Keyboard readers: arrow keys steer the brass lens, <kbd>Enter</kbd> checks the spot.</li>
+    </ul>
+    <button id="btn-start" type="button" class="big">Begin the hunt</button>
+  </section>
+
+  <section id="screen-round" class="screen hidden">
+    <h2>Round clear!</h2>
+    <p id="round-stats" class="story"></p>
+    <p class="story">The light is changing over the reading room. The
+      library is the same — and twelve details are about to move again.</p>
+    <button id="btn-next" type="button" class="big">Next round</button>
+  </section>
+
+  <section id="screen-over" class="screen hidden">
+    <h2>The bell has rung</h2>
+    <p class="story">Time ran out with differences still hiding among
+      the shelves. They will keep — the same round, the same twelve,
+      whenever you are ready.</p>
+    <button id="btn-retry" type="button" class="big">Try the round again</button>
+  </section>
+
+  <section id="screen-end" class="screen hidden">
+    <h2>Every difference found!</h2>
+    <table class="end-table"><tbody id="end-rows"></tbody></table>
+    <p class="final-score">Final score <strong id="end-score">0</strong></p>
+    <button id="btn-again" type="button" class="big">Play again</button>
+  </section>
+</div>
+
+<p id="status" role="status" aria-live="polite"></p>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
